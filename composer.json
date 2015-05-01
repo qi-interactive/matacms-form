@@ -1,0 +1,24 @@
+{
+    "name": "matacms/matacms-form",
+    "description": "Manages forms for MATA",
+    "keywords": ["yii2", "matacms-form", "form", "matacms"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "codeception/codeception": "*",
+        "yiisoft/yii2-codeception": "*",
+        "yiisoft/yii2-faker": "*",
+        "mailchimp/mailchimp": "*"
+    },
+    "require-dev": {
+        "yiisoft/yii2-gii": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "matacms\\form\\": ""
+        }
+    }
+}
