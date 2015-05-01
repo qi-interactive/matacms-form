@@ -6,7 +6,7 @@ use matacms\form\models\Form;
 use matacms\form\models\FormSearch;
 use matacms\controllers\module\Controller;
 use yii\helpers\Json;
-use mata\db\DynamicActiveDataProvider;
+use yii\data\ActiveDataProvider;
 use matacms\base\MessageEvent;
 
 /**
@@ -25,12 +25,10 @@ class SubmissionController extends Controller {
 
 		$formModel = \matacms\form\models\Form::findOne($id);
 
-		// TODO
+		$formClass = $formModel->Class;
+		$model = new $formClass;
 
-		$dynamicModel = new \mata\db\DynamicActiveRecord($formModel->ReferencedTable);
-
-		$dataProvider = $this->getSearchModelForDynamicActiveRecord($dynamicModel, $formModel, \Yii::$app->request->queryParams);
-
+		$dataProvider = $this->getFormSearchModel($model, \Yii::$app->request->queryParams);
 
 		return $this->render("index", [
 			'dataProvider' => $dataProvider,
@@ -42,11 +40,10 @@ class SubmissionController extends Controller {
 
 		$formModel = \matacms\form\models\Form::findOne($formId);
 
-		// TODO
+		$formClass = $formModel->Class;
+		$model = new $formClass;
 
-		$dynamicModel = new \mata\db\DynamicActiveRecord($formModel->ReferencedTable);
-
-		$submission = $dynamicModel->findOne($submissionId);
+		$submission = $model->findOne($submissionId);
 
 		return $this->render("view", [
 			'model' => $submission,
@@ -58,11 +55,10 @@ class SubmissionController extends Controller {
 
 		$formModel = \matacms\form\models\Form::findOne($formId);
 
-		// TODO
+		$formClass = $formModel->Class;
+		$model = new $formClass;
 
-		$dynamicModel = new \mata\db\DynamicActiveRecord($formModel->ReferencedTable);
-
-		$submission = $dynamicModel->findOne($submissionId);
+		$submission = $model->findOne($submissionId);
 
 		$this->trigger(parent::EVENT_MODEL_DELETED, new MessageEvent($formModel->Name ." <strong>".$submission->getLabel()."</strong> has been <strong>deleted</strong>."));
 		$submission->delete();
@@ -71,13 +67,12 @@ class SubmissionController extends Controller {
 	}
 
 	// TODO
-	protected function getSearchModelForDynamicActiveRecord($model, $formModel, $params) {
+	protected function getFormSearchModel($model, $params) {
 
         $query = $model->find();
 
-        $dataProvider = new DynamicActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'tableName' => $formModel->tableName,
             'sort' => false
         ]);
 
