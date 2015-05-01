@@ -9,7 +9,7 @@ $moduleBaseUrl = sprintf("/mata-cms/%s/%s", $this->context->module->id, $this->c
 
 ?> 
 
-<div class="list-container row">
+<div class="list-container row simple-list-container">
 	<a href='<?= sprintf("%s/details?formId=%d&submissionId=%d", $moduleBaseUrl, $formModel->Id, $model->primaryKey);?>' class="list-link">
 			<div class="list-contents-container">
 				<div class="list-label"> 

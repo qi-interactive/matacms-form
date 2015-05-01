@@ -15,7 +15,14 @@ yii\gii\GiiAsset::register($this);
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'Name')->textInput(['maxlength' => 128]) ?>
-    <?= $form->field($model, 'ReferencedTable')->dropDownList($model->findFormTableNames()); ?>
+    <?php
+    $options = [];
+    if (!$model->isNewRecord) {
+        $options['options'] = ['disabled' => 'disabled'];
+    }
+    ?>
+    <?= $form->field($model, 'ReferencedTable')->dropDownList($model->findFormTableNames(), $options); ?>
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -76,4 +76,44 @@ class Form extends \matacms\db\ActiveRecord {
         }
         return $formTableNames;
     }
+
+    public function beforeSave($insert) 
+    {
+        if($insert) {
+            $generator = new \matacms\gii\generators\model\Generator;        
+            $generator->tableName = $this->ReferencedTable;
+            $generator->modelClass = $generator->generateClassName($this->ReferencedTable);
+
+            if ($generator->validate()) {
+                $generator->saveStickyAttributes();
+                $files = $generator->generate();
+                $answers = [];
+                foreach($files as $file)
+                    $answers[$file->id] = 1;
+
+                if($generator->save($files, $answers, $results)) {
+                    $this->Class = $generator->ns . '\\' . $generator->modelClass;                
+                } else {
+                    $this->addError('Name', $results);
+                    return false;
+                }
+            } else {
+                $this->addError('Name', implode(', ', $generator->getErrors()));
+                return false;
+            }
+        }       
+
+        return parent::beforeSave($insert);
+    }
+
+    public function afterDelete()
+    {
+        $reflector = new \ReflectionClass($this->Class);
+        $filePath = $reflector->getFileName();
+        if(file_exists($filePath)) {
+            unlink($filePath);
+        }
+        return parent::afterDelete();
+    }
+
 }
