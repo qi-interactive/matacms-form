@@ -10,10 +10,7 @@
     "require": {
         "codeception/codeception": "*",
         "yiisoft/yii2-codeception": "*",
-        "yiisoft/yii2-faker": "*"
-    },
-    "require-dev": {
-        "yiisoft/yii2-gii": "*",
+        "yiisoft/yii2-faker": "*",
         "matacms/matacms-gii": "dev-development"
     },
     "autoload": {
