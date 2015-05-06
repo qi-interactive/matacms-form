@@ -33,14 +33,6 @@ $isRearrangable = isset($this->context->actions()['rearrange']);
                 </div>
             </div>
         </div>
-        <div class="top-bar-sort-by-container">
-            <ul>
-                <li class="sort-by-label"> Sort by </li>
-                <li> Date Created </li>
-                <li> Category </li>
-                <li> Client </li>
-            </ul>
-        </div>
     </div>
 </div>
 
@@ -70,3 +62,12 @@ Pjax::end();
         echo $this->render('@vendor/matacms/matacms-base/views/module/_rearrange');
     ?>
 
+<script>
+
+    parent.mata.simpleTheme.header
+    .setText('YOU\'RE IN <?= $this->context->module->id ?> MODULE')
+    .hideBackToListView()
+    .hideVersions()
+    .show();
+
+</script>
