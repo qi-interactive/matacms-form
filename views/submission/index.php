@@ -59,7 +59,7 @@ Pjax::end();
 
     <?php 
     if($isRearrangable)
-        echo $this->render('@vendor/matacms/matacms-base/views/module/_rearrange');
+        echo $this->render('@vendor/matacms/matacms-base/views/module/_overlay');
     ?>
 
 <script>
