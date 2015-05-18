@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
+ */
+
 namespace matacms\form\models;
 
 use Yii;
@@ -11,9 +17,7 @@ use matacms\form\models\Form;
  * FormSearch represents the model behind the search form about `matacms\form\models\Form`.
  */
 class FormSearch extends Form {
-    /**
-     * @inheritdoc
-     */
+
     public function rules() {
         return [
             [['Id'], 'integer'],
@@ -21,9 +25,6 @@ class FormSearch extends Form {
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
@@ -46,8 +47,6 @@ class FormSearch extends Form {
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
@@ -60,4 +59,5 @@ class FormSearch extends Form {
 
         return $dataProvider;
     }
+    
 }

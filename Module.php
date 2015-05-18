@@ -1,12 +1,9 @@
 <?php
 
-/*
- * This file is part of the mata project.
- *
- * (c) mata project <http://github.com/qi-interactive/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
  */
 
 namespace matacms\form;
@@ -14,13 +11,6 @@ namespace matacms\form;
 use mata\base\Module as BaseModule;
 use yii\helpers\Json;
 
-/**
- * This is the main module class for the Yii2-user.
- *
- * @property array $modelMap
- *
- * @author Dmitry Erofeev <dmeroff@gmail.com>
- */
 class Module extends BaseModule {
 
 	public $runBootstrap = true;
@@ -57,7 +47,6 @@ class Module extends BaseModule {
 		
 		return $navigation;
 
-
-		// return "/mata-cms/form/form";
 	}
+
 }

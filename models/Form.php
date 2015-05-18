@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
+ */
+
 namespace matacms\form\models;
 
 use Yii;
@@ -13,9 +19,6 @@ use Yii;
  */
 class Form extends \matacms\db\ActiveRecord {
     
-    /**
-     * @inheritdoc
-     */
     public static function tableName() {
         return '{{%matacms_form}}';
     }
@@ -26,9 +29,6 @@ class Form extends \matacms\db\ActiveRecord {
       ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules() {
         return [
             [['Name', 'ReferencedTable'], 'required'],
@@ -38,9 +38,6 @@ class Form extends \matacms\db\ActiveRecord {
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels() {
         return [
             'Id' => 'ID',
@@ -49,9 +46,6 @@ class Form extends \matacms\db\ActiveRecord {
         ];
     }
 
-    /**
-     * Validates the [[tableName]] attribute.
-     */
     public function validateReferencedTable()
     {
         $formTables = $this->findFormTableNames();
@@ -69,9 +63,7 @@ class Form extends \matacms\db\ActiveRecord {
         $tableNames = $db->getSchema()->getTableNames();
         if(!empty($tableNames)) {
             foreach ($tableNames as $tableName) {
-                // if(strpos($tableName, 'form_') === 0) {
-                    $formTableNames[$tableName] = $tableName;
-                // }
+                $formTableNames[$tableName] = $tableName;
             }
         }
         return $formTableNames;

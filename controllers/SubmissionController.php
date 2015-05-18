@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
+ */
+
 namespace matacms\form\controllers;
 
 use matacms\form\models\Form;
@@ -17,6 +23,7 @@ class SubmissionController extends Controller {
 	public function getModel() {
 		return new Form;
 	}
+
 	public function getSearchModel() {
 		return new FormSearch;
 	}
@@ -66,7 +73,6 @@ class SubmissionController extends Controller {
 		return $this->redirect(['list?id=' . $formId]);
 	}
 
-	// TODO
 	protected function getFormSearchModel($model, $params) {
 
         $query = $model->find();
@@ -79,12 +85,11 @@ class SubmissionController extends Controller {
         $model->load($params);
 
         if (!$model->validate()) {
-            // uncomment the following line if you do not want to any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-  //       if(!empty($model->Extra)) {
+        // TODO: in future add settings for search and filterable attributes
+  		//  if(!empty($model->Extra)) {
 		// 	$settings = Json::decode($model->Extra);
 		// 	if(isset($settings['filterBy']) && !empty($settings['filterBy'])) {
 		// 		foreach($settings['filterBy'] as $filterBy) {
@@ -92,7 +97,6 @@ class SubmissionController extends Controller {
 		// 			// var_dump($filterBy);
 		// 		}
 		// 	}
-
 		// }
 
         return $dataProvider;
