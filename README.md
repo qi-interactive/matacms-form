@@ -10,7 +10,7 @@ Form module manages forms for MATA CMS.
 Installation
 ------------
 
-- Add the module using composer: 
+- Add the module using composer:
 
 ```json
 "matacms/matacms-form": "~1.0.0"
@@ -24,6 +24,10 @@ php yii migrate/up --migrationPath=@vendor/matacms/matacms-form/migrations
 
 Changelog
 ---------
+
+## 1.0.1-alpha, August 04, 2015
+
+- Updated markup for entry detail view.
 
 ## 1.0.0-alpha, May 18, 2015
 

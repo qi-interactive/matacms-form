@@ -11,6 +11,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Content Blocks', 'url' => ['index'
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<div class="module-entry-detail-view">
+
 <div><?= Html::a("Back to list view", sprintf("/mata-cms/%s/%s/list?id=%d", $this->context->module->id, $this->context->id, $formModel->Id), ['id' => 'back-to-list-view']);?></div>
 
 <div class="content-block-view">
@@ -27,4 +29,5 @@ $this->params['breadcrumbs'][] = $this->title;
         // ],
     ]) ?>
 
+</div>
 </div>

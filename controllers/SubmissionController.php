@@ -66,9 +66,9 @@ class SubmissionController extends Controller {
 		$model = new $formClass;
 
 		$submission = $model->findOne($submissionId);
-
-		$this->trigger(parent::EVENT_MODEL_DELETED, new MessageEvent($formModel->Name ." <strong>".$submission->getLabel()."</strong> has been <strong>deleted</strong>."));
 		$submission->delete();
+		$this->trigger(parent::EVENT_MODEL_DELETED, new MessageEvent($formModel->Name ." <strong>".$submission->getLabel()."</strong> has been <strong>deleted</strong>."));
+
 
 		return $this->redirect(['list?id=' . $formId]);
 	}
