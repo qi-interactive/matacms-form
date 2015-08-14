@@ -24,9 +24,9 @@ $isRearrangable = isset($this->context->actions()['rearrange']);
     <div class="content-block-top-bar">
         <div class="row">
             <div class="btns-container">
-                
+
             </div>
-            <div class="search-container"> 
+            <div class="search-container">
                 <div class="search-input-container">
                     <input class="search-input" id="item-search" placeholder="Type to search" value="" name="search">
                     <div class="search-submit-btn"><input type="submit" value=""></div>
@@ -39,17 +39,28 @@ $isRearrangable = isset($this->context->actions()['rearrange']);
 <?php
 
 Pjax::begin([
-    "timeout" => 10000
+    "timeout" => 10000,
+    "scrollTo" => false
     ]);
-
-// var_dump($dataProvider->getModels());
 
 echo ListView::widget([
     'dataProvider' => $dataProvider,
+    'id' => 'infinite-list-view',
     'itemView' => '_itemView',
-    'layout' => "{items}\n{pager}",
     'viewParams' => ['formModel' => $formModel]
-    ]); 
+    'layout' => "{items}\n{pager}",
+    'pager' => [
+    'class' => '\mata\widgets\InfiniteScrollPager\InfiniteScrollPager',
+    'clientOptions' => [
+    'pjax' => [
+    'id' => $pjax->options['id'],
+    ],
+    'listViewId' => 'infinite-list-view',
+    'itemSelector' => 'div[data-key]'
+    ]
+    ]
+    ]);
+
 
 Pjax::end();
 
@@ -57,7 +68,7 @@ Pjax::end();
 
 
 
-    <?php 
+    <?php
     if($isRearrangable)
         echo $this->render('@vendor/matacms/matacms-base/views/module/_overlay');
     ?>
