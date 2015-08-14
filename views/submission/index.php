@@ -38,7 +38,7 @@ $isRearrangable = isset($this->context->actions()['rearrange']);
 
 <?php
 
-Pjax::begin([
+$pjax = Pjax::begin([
     "timeout" => 10000,
     "scrollTo" => false
     ]);
@@ -47,7 +47,7 @@ echo ListView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'infinite-list-view',
     'itemView' => '_itemView',
-    'viewParams' => ['formModel' => $formModel]
+    'viewParams' => ['formModel' => $formModel],
     'layout' => "{items}\n{pager}",
     'pager' => [
     'class' => '\mata\widgets\InfiniteScrollPager\InfiniteScrollPager',
