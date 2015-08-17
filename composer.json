@@ -10,6 +10,9 @@
     "require": {
         "matacms/matacms-gii": "1.0.0-alpha"
     },
+    "require-dev": {
+        "matacms/matacms-gii": "dev-development"
+    },
     "autoload": {
         "psr-4": {
             "matacms\\form\\": ""
