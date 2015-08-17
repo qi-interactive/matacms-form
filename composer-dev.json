@@ -6,9 +6,9 @@
     "license": "MIT",
     "support": {
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
-        "matacms/matacms-gii": "1.0.0-alpha"
+        "matacms/matacms-gii": "dev-development"
     },
     "autoload": {
         "psr-4": {
