@@ -36,6 +36,8 @@ $isRearrangable = isset($this->context->actions()['rearrange']);
     </div>
 </div>
 
+<div class="border"> </div>
+
 <?php
 
 $pjax = Pjax::begin([
