@@ -25,6 +25,11 @@ php yii migrate/up --migrationPath=@vendor/matacms/matacms-form/migrations
 Changelog
 ---------
 
+## 1.0.2-alpha, August 21, 2015
+
+- Added infinite scroll for list view
+- Updated markup for entry detail view.
+
 ## 1.0.1-alpha, August 04, 2015
 
 - Updated markup for entry detail view.
