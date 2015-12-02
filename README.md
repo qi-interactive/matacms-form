@@ -25,6 +25,10 @@ php yii migrate/up --migrationPath=@vendor/matacms/matacms-form/migrations
 Changelog
 ---------
 
+## 1.0.2.1-alpha, December 02, 2015
+
+- Fixed actionDeleteSubmission in SubmissionController
+
 ## 1.0.2-alpha, August 21, 2015
 
 - Added infinite scroll for list view

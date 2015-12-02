@@ -67,8 +67,7 @@ class SubmissionController extends Controller {
 
 		$submission = $model->findOne($submissionId);
 		$submission->delete();
-		$this->trigger(parent::EVENT_MODEL_DELETED, new MessageEvent($formModel->Name ." <strong>".$submission->getLabel()."</strong> has been <strong>deleted</strong>."));
-
+		\Yii::$app->getSession()->addFlash('success', $formModel->Name ." <strong>".$submission->getLabel()."</strong> has been <strong>deleted</strong>.");
 
 		return $this->redirect(['list?id=' . $formId]);
 	}
