@@ -36,14 +36,37 @@ $isRearrangable = isset($this->context->actions()['rearrange']);
     </div>
 </div>
 
-<div class="border"> </div>
-
 <?php
 
 $pjax = Pjax::begin([
     "timeout" => 10000,
     "scrollTo" => false
     ]);
+
+    if (count($searchModel->filterableAttributes()) > 0):
+?>
+
+    <div class="content-block-index">
+        <div class="content-block-top-bar sort-by-wrapper">
+          <div class="top-bar-sort-by-container">
+              <ul>
+                  <li class="sort-by-label"> Sort by </li>
+                  <?php foreach ($searchModel->filterableAttributes() as $attribute): ?>
+                      <li> <?php
+                          // Sorting resets page count
+                         $link = $sort->link($attribute);
+                         echo preg_replace("/page=\d*/", "page=1", $link);
+                         ?> </li>
+                     <?php endforeach; ?>
+                 </ul>
+             </div>
+         </div>
+     </div>
+<?php endif; ?>
+
+<div class="border"> </div>
+
+<?php
 
 echo ListView::widget([
     'dataProvider' => $dataProvider,
@@ -66,14 +89,35 @@ echo ListView::widget([
 
 Pjax::end();
 
-    ?>
+if($isRearrangable)
+    echo $this->render('@vendor/matacms/matacms-base/views/module/_overlay');
+?>
 
+<?php
 
+if (count($searchModel->filterableAttributes()) > 0)
+    $this->registerJs('
+        $("#item-search").on("keyup", function() {
+            var attrs = ' . json_encode($searchModel->filterableAttributes()) . ';
+            var reqAttrs = []
+            var value = $(this).val();
+            $(attrs).each(function(i, attr) {
+                reqAttrs.push({
+                    "name" : "' . $searchModel->formName() . '[" + attr + "]",
+                    "value" : value
+                });
 
-    <?php
-    if($isRearrangable)
-        echo $this->render('@vendor/matacms/matacms-base/views/module/_overlay');
-    ?>
+                reqAttrs.push({
+                    "name" : "id",
+                    "value" : "' . $id . '"
+                });
+});
+
+$.pjax.reload({container:"#w0", "url" : "?" + decodeURIComponent($.param(reqAttrs))});
+})
+');
+
+?>
 
 <script>
 

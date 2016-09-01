@@ -14,6 +14,8 @@ use matacms\controllers\module\Controller;
 use yii\helpers\Json;
 use yii\data\ActiveDataProvider;
 use matacms\base\MessageEvent;
+use yii\data\Sort;
+use yii\web\NotFoundHttpException;
 
 /**
  * FormController implements the CRUD actions for Form model.
@@ -32,20 +34,39 @@ class SubmissionController extends Controller {
 
 		$formModel = \matacms\form\models\Form::findOne($id);
 
+		if(!$formModel)
+			throw new NotFoundHttpException('The requested page does not exist.');
+
 		$formClass = $formModel->Class;
 		$model = new $formClass;
 
 		$dataProvider = $this->getFormSearchModel($model, \Yii::$app->request->queryParams);
 
+		$sort = new Sort([
+			'attributes' => $model->filterableAttributes()
+		]);
+
+		if(!empty($sort->orders)) {
+			$dataProvider->query->orderBy = null;
+		}
+
+		$dataProvider->setSort($sort);
+
 		return $this->render("index", [
 			'dataProvider' => $dataProvider,
-			'formModel' => $formModel
+			'searchModel' => $model,
+			'formModel' => $formModel,
+			'sort' => $sort,
+			'id' => $id
 			]);
 	}
 
 	public function actionDetails($formId, $submissionId) {
 
 		$formModel = \matacms\form\models\Form::findOne($formId);
+
+		if(!$formModel)
+			throw new NotFoundHttpException('The requested page does not exist.');
 
 		$formClass = $formModel->Class;
 		$model = new $formClass;
@@ -74,11 +95,12 @@ class SubmissionController extends Controller {
 
 	protected function getFormSearchModel($model, $params) {
 
+		$model->scenario = $model::SCENARIO_FORM_SEARCH;
         $query = $model->find();
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => false
         ]);
 
         $model->load($params);
@@ -87,16 +109,9 @@ class SubmissionController extends Controller {
             return $dataProvider;
         }
 
-        // TODO: in future add settings for search and filterable attributes
-  		//  if(!empty($model->Extra)) {
-		// 	$settings = Json::decode($model->Extra);
-		// 	if(isset($settings['filterBy']) && !empty($settings['filterBy'])) {
-		// 		foreach($settings['filterBy'] as $filterBy) {
-		// 			// $query->andFilterWhere(['like', 'Name', $this->Name])
-		// 			// var_dump($filterBy);
-		// 		}
-		// 	}
-		// }
+		foreach ($model->filterableAttributes() as $attribute) {
+			$query->andFilterWhere(['like', $attribute, $model->$attribute]);
+		}
 
         return $dataProvider;
 	}
