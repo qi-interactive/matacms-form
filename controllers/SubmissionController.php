@@ -110,7 +110,7 @@ class SubmissionController extends Controller {
         }
 
 		foreach ($model->filterableAttributes() as $attribute) {
-			$query->andFilterWhere(['like', $attribute, $model->$attribute]);
+			$query->orFilterWhere(['like', $attribute, $model->$attribute]);
 		}
 
         return $dataProvider;

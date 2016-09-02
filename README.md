@@ -25,6 +25,10 @@ php yii migrate/up --migrationPath=@vendor/matacms/matacms-form/migrations
 Changelog
 ---------
 
+## 1.0.2.4-alpha, September 2, 2016
+
+- Fixed search functionality in SubmissionController
+
 ## 1.0.2.3-alpha, September 1, 2016
 
 - Updated composer.json

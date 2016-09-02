@@ -106,12 +106,12 @@ if (count($searchModel->filterableAttributes()) > 0)
                     "name" : "' . $searchModel->formName() . '[" + attr + "]",
                     "value" : value
                 });
+            });
 
-                reqAttrs.push({
-                    "name" : "id",
-                    "value" : "' . $id . '"
-                });
-});
+            reqAttrs.push({
+                "name" : "id",
+                "value" : "' . $id . '"
+            });
 
 $.pjax.reload({container:"#w0", "url" : "?" + decodeURIComponent($.param(reqAttrs))});
 })
