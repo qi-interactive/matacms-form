@@ -95,7 +95,6 @@ class SubmissionController extends Controller {
 
 	protected function getFormSearchModel($model, $params) {
 
-		$model->scenario = $model::SCENARIO_FORM_SEARCH;
         $query = $model->find();
 
 
